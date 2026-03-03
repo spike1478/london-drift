@@ -1,4 +1,4 @@
-const CACHE_NAME = 'london-drift-v1';
+const CACHE_NAME = 'london-drift-v2';
 const STATION_CACHE = 'station-data-v1';
 const DRIFT_CACHE = 'past-drifts-v1';
 const STATION_TTL = 7 * 24 * 60 * 60 * 1000; // 7 days
@@ -49,9 +49,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // App shell: cache-first
+  // App shell: network-first (ensures latest HTML is always served)
   if (event.request.mode === 'navigate' || PRECACHE_URLS.includes(url.pathname)) {
-    event.respondWith(cacheFirst(event.request, CACHE_NAME));
+    event.respondWith(networkFirst(event.request));
     return;
   }
 
