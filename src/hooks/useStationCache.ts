@@ -53,8 +53,10 @@ export function useStationCache(lineIds: string[]) {
     setLoading(true);
     setError(null);
     try {
-      const results = await Promise.all(lineIds.map(fetchStopPoints));
-      const flat = results.flat();
+      const results = await Promise.allSettled(lineIds.map(fetchStopPoints));
+      const flat = results
+        .filter((r): r is PromiseFulfilledResult<TflStopPoint[]> => r.status === 'fulfilled')
+        .flatMap((r) => r.value);
 
       // Deduplicate by naptanId
       const seen = new Set<string>();
@@ -63,6 +65,11 @@ export function useStationCache(lineIds: string[]) {
         seen.add(s.naptanId);
         return true;
       });
+
+      if (unique.length === 0) {
+        setError('No stations loaded. Check your connection and try again.');
+        return;
+      }
 
       writeCache(unique);
       setStations(unique);

@@ -22,8 +22,10 @@ import { generateRiddle } from './engine/riddles';
 const LINE_IDS = [
   'bakerloo','central','circle','district','hammersmith-city',
   'jubilee','metropolitan','northern','piccadilly','victoria',
-  'waterloo-city','dlr','london-overground','elizabeth',
-  'tram','emirates-air-line','river-bus',
+  'waterloo-city','dlr','elizabeth',
+  'liberty','lioness','mildmay','suffragette','weaver','windrush',
+  'tram','london-cable-car',
+  'rb1','rb4','rb6','woolwich-ferry',
 ];
 
 export default function App() {
