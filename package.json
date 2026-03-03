@@ -17,6 +17,16 @@
     "react-dom": "^19.2.4",
     "react-leaflet": "^4.2.1"
   },
+  "overrides": {
+    "react-leaflet": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    },
+    "@react-leaflet/core": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
+  },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.1",
     "@testing-library/jest-dom": "^6.9.1",
