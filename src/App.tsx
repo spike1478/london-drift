@@ -180,7 +180,7 @@ export default function App() {
           />
 
           {/* Bottom drawer (mobile) / Sidebar (desktop) */}
-          <div className="absolute bottom-0 left-0 right-0 md:right-auto md:top-14 md:w-96 md:bottom-0 bg-drift-bg/95 backdrop-blur-sm border-t md:border-t-0 md:border-r border-white/10 p-4 overflow-y-auto max-h-[40vh] md:max-h-full">
+          <div className="absolute bottom-0 left-0 right-0 md:right-auto md:top-14 md:w-96 md:bottom-0 z-[1000] bg-drift-bg/95 backdrop-blur-sm border-t md:border-t-0 md:border-r border-white/10 p-4 overflow-y-auto max-h-[40vh] md:max-h-full">
             <JourneyRoute
               legs={plan.legs}
               completedStations={completedStations}
