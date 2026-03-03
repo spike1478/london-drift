@@ -16,13 +16,22 @@ import { useDrift } from './hooks/useDrift';
 import { useSound } from './hooks/useSound';
 import { useGeolocation } from './hooks/useGeolocation';
 import { useCompletionist } from './hooks/useCompletionist';
+import { useStationCache } from './hooks/useStationCache';
 import { generateRiddle } from './engine/riddles';
+
+const LINE_IDS = [
+  'bakerloo','central','circle','district','hammersmith-city',
+  'jubilee','metropolitan','northern','piccadilly','victoria',
+  'waterloo-city','dlr','london-overground','elizabeth',
+  'tram','emirates-air-line','river-bus',
+];
 
 export default function App() {
   const { playClick, playChime, isMuted, toggleMute } = useSound();
   const { position } = useGeolocation();
   const { state: completionistState, visitStation, finishDrift, badges } = useCompletionist();
-  const { state, plan, generate, completeStation, completeDrift, reset, completedStations } = useDrift([]);
+  const { stations, loading: stationsLoading, error: stationsError } = useStationCache(LINE_IDS);
+  const { state, plan, error: driftError, generate, activate, completeStation, completeDrift, reset, completedStations } = useDrift(stations);
 
   const [showIntro, setShowIntro] = useState(() => !localStorage.getItem('seen_intro'));
   const [showCompletionist, setShowCompletionist] = useState(false);
@@ -37,8 +46,8 @@ export default function App() {
   }, [generate, position]);
 
   const handleRevealComplete = useCallback(() => {
-    // Transition from revealing to active (map view)
-  }, []);
+    activate();
+  }, [activate]);
 
   const handleStationClick = useCallback((stationId: string) => {
     if (!plan) return;
@@ -104,6 +113,37 @@ export default function App() {
       {/* Landing / Idle state */}
       {state === 'idle' && (
         <Landing onDrift={handleDrift} />
+      )}
+
+      {/* Loading / Error states for stations */}
+      {state === 'idle' && stationsLoading && (
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-drift-accent font-mono text-lg animate-pulse">
+            Loading stations...
+          </div>
+        </div>
+      )}
+
+      {state === 'idle' && stationsError && (
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-red-400 font-mono text-lg">
+            Failed to load stations: {stationsError}
+          </div>
+        </div>
+      )}
+
+      {state === 'idle' && driftError && (
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+          <div className="text-red-400 font-mono text-lg text-center px-4">
+            {driftError}
+          </div>
+          <button
+            onClick={reset}
+            className="px-6 py-2 rounded-lg bg-drift-accent text-white font-medium hover:bg-drift-accent/80 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
       )}
 
       {/* Generating state */}
