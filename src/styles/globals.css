@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --color-drift-bg: #0a0e1a;
+  --color-drift-surface: #121829;
+  --color-drift-card: #1a2236;
+  --color-drift-accent: #0098D4;
+  --color-drift-fare: #FFD300;
+  --color-drift-success: #00782A;
+  --color-drift-warning: #E32017;
+
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  @apply bg-drift-bg text-white antialiased;
+  font-family: var(--font-sans);
+  margin: 0;
+}
+
+/* Solari board flip animation */
+@keyframes solari-flip {
+  0% { transform: rotateX(0deg); }
+  50% { transform: rotateX(-90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+.solari-char {
+  display: inline-block;
+  font-family: var(--font-mono);
+  animation: solari-flip 0.15s ease-in-out;
+}
+
+/* Mode roulette spin */
+@keyframes mode-spin {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+
+.mode-roulette {
+  overflow: hidden;
+}
+
+.mode-roulette-inner {
+  animation: mode-spin 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Pulse glow for drift button */
+@keyframes drift-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 152, 212, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(0, 152, 212, 0.6); }
+}
+
+.drift-button-glow {
+  animation: drift-pulse 2s ease-in-out infinite;
+}
+
+/* Journey card slide in */
+@keyframes card-slide-in {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.card-enter {
+  animation: card-slide-in 0.3s ease-out forwards;
+}
+
+/* Bottom drawer */
+.bottom-drawer {
+  transition: transform 0.3s ease-out;
+}

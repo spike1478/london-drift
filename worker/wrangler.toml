@@ -1,0 +1,26 @@
+name = "london-drift-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+[vars]
+WEBAUTHN_RP_NAME = "London Drift"
+
+[[kv_namespaces]]
+binding = "CREDENTIALS"
+id = "1f951c720b8f47838f5a6cc525e59133"
+
+[[kv_namespaces]]
+binding = "USERS"
+id = "1c2d3d8b00944889817c5f895940ef0b"
+
+[[kv_namespaces]]
+binding = "PROGRESS"
+id = "59f5ff070bc4479d9e99163d0ed2a98c"
+
+[[kv_namespaces]]
+binding = "SHARES"
+id = "ec2c2199283848f69551d3de5a685302"
+
+# Secrets (set via wrangler secret put):
+# TFL_APP_KEY
+# WEBAUTHN_RP_ID

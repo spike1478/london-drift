@@ -1,0 +1,21 @@
+{
+  "name": "london-drift-worker",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@simplewebauthn/server": "^13.1.1",
+    "nanoid": "^5.1.5"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260305.0",
+    "typescript": "~5.9.3",
+    "vitest": "^4.0.18",
+    "wrangler": "^4.21.2"
+  }
+}
